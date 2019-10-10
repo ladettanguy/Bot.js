@@ -1,0 +1,30 @@
+{
+  "PJ": {
+    "Maliwan": {
+      "xp": 0,
+      "gold": 0,
+      "fiche": "https://drive.google.com/open?id=1acfDlLpjHvVF7yZXMfKNBiDviQb6Tfw7"
+    },
+    "Test": {
+      "xp": 0,
+      "gold": 0
+    }
+  },
+  "Magasin": {
+    "Grenade": {
+      "Prix": 20,
+      "Description": "Explosif jetable qui explose quelque seconde apès avoir dégoupillé",
+      "Dispo": 10
+    },
+    "Adrenaline": {
+      "Prix": 50,
+      "Description": "Drogue , Permet de supporté la douleur quelque temps",
+      "Dispo": "10"
+    },
+    "Corde": {
+      "Prix": 5,
+      "Description": "2m de corde de solidité moyenne",
+      "Dispo": "20"
+    }
+  }
+}
