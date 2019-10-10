@@ -17,9 +17,9 @@ commandePrenium.set('!gaingold','')
 //doit etre utiliser en fesant !gain[xp or gold] [Perso (avec la premiere lettre majuscule)] [Montant]
 
 var commandeGetter = new Map;
+//s'utilise seul (juste il faut que le pseudo soit égal a votre nom de perso)
 commandeGetter.set('!getxp','');
 commandeGetter.set('!getgold','');
-//s'utilise seul (juste il faut que le pseudo soit égal a votre nom de perso)
 
 // console
 
@@ -28,7 +28,7 @@ bot.on('ready', function () {
     console.log("Je suis connecté !")
 })
 
-bot.login('NjI5NDExMjc4MjQyMTg1MjI5.XZZXUw.I2SeEez4K5r-wGdRLmwHQracWQE')
+bot.login('NjI5NDExMjc4MjQyMTg1MjI5.XZ7qrg.52TrldlcQUchcaoGX1n-ay2C14Q')
 
 // message de bienvenue est  au revoir 
 
@@ -52,47 +52,22 @@ bot.on('guildMemberRemove', member=>{
       
 bot.on('message',function (message)  
 {
-    //Question/réponse phrase/réponse de la Map @reponse 
-    if(reponse.has(message.content)) message.reply(reponse.get(message.content))
-    else 
-    {
-        //accès fiche de Personnage
-        var x = message.content.split(' ')
-        if(x[0] == '!fiche') message.reply(bd.PJ[x[1]].fiche)
-        else 
-        {
-            //Commandes Joueurs
-            if(commandeGetter.has(message.content))
-            {
-                var type = message.content.split('get');
-                message.reply(bd.PJ[message.member.nickname][type[1]])
-            }
-            else
-            {
-                //Commandes Admin/MJ
-                if(commandePrenium.has(x[0])/* && (message.member.id == '265079904675037184' || message.member.id == '510599453569187860')*/) 
-                {
-                    type = x[0].split('gain')[1];
-                    bd.PJ[x[1]][type] += parseInt(x[2]);
-                    message.reply("fais");
-                    saveFile();
-                }
-                else
-                {
-                    // Lanceur de dé
-                    var x = (message.content.split('d')[0]+'d');
-                    if (x == '!1d') message.reply(Math.floor(Math.random() * parseInt(x[1]) + 1));
-                    else 
-                    {
-                        
-                    }
-                }
-            }
-        }
-    }
+    var x = message.content.split(' ');
+    var typePrenim = type = x[0].split('gain')[1];
+
+    //Formation de if else if ... avec (condition) ? instruction : (condition) ? instruction : ect
+    (reponse.has(message.content)) ? message.reply(reponse.get(message.content)) : //Question/réponse phrase/réponse de la Map @reponse 
+    (x[0] == '!fiche') ? message.reply(bd.PJ[x[1]].fiche) : //accès fiche de Personnage
+    (commandeGetter.has(message.content)) ? message.reply(bd.PJ[message.member.nickname][message.content.split('get')[1]]) : //Commandes Joueurs
+    (commandePrenium.has(x[0]) && (message.member.id == '265079904675037184' || message.member.id == '510599453569187860')) ? //Commandes Admin/MJ
+        bd.PJ[x[1]][type] += parseInt(x[2]) :
+    (message.content.split('d')[0]+'d' == '!1d') ? 
+        message.reply(Math.floor(Math.random() * parseInt(message.content.split('d')[1]) + 1)) : //Lanceur de dé
+    x = 0; // commande inutile pour finir le Else
+    saveFile()
 })
 
-//Gestionnaire Magasin
+//Gestionnaire Magasin/Inventaire
 
 bot.on('message',function(message){
     var mod = message.content.split(' ')
@@ -101,11 +76,27 @@ bot.on('message',function(message){
             message.reply(bd.Magasin[mod[1]].Description);
         break;
         case '!buy':
-            
+            switch(mod.length){
+            case 2:
+                //décrémente l'argent apres vérification
+                //ajoute a l'inventaire
+                //décrémente le dispo de 1
+                //
+            break;
+            case 3:
+                //pareil que case 2 mais ajoute mod[1] dans l'inentaire et décremente de x[1]
+            break;
+            default:
+                message.reply("problem dans l'achat essayer !buy [Nombre] [Nom]")
+            break
+            }
         break;
         case '!dispo':
             message.reply(bd.Magasin[mod[1]].Dispo);
         break; 
+        case '!use':
+
+        break;
 
     }
 })
