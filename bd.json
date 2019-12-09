@@ -2,10 +2,14 @@
   "PJ": {
     "Maliwan": {
       "xp": 0,
-      "gold": 0,
-      "fiche": "https://drive.google.com/open?id=1acfDlLpjHvVF7yZXMfKNBiDviQb6Tfw7"
+      "gold": 20,
+      "fiche": "https://drive.google.com/open?id=1acfDlLpjHvVF7yZXMfKNBiDviQb6Tfw7",
+      "Inventaire": {
+        "Sac": 1
+      }
     },
     "Test": {
+      "xp": 0,
       "gold": 0
     }
   },
